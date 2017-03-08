@@ -1,10 +1,12 @@
 package com.lejeme.dao;
 
-import com.epul.oeuvres.meserreurs.MonException;
+import com.lejeme.meserreurs.MonException;
 import java.util.*;
 
-import com.epul.oeuvres.metier.*;
-import com.epul.oeuvres.persistance.*;
+import com.lejeme.metier.*;
+import com.lejeme.persistance.*;
+import com.lejeme.metier.Adherent;
+import com.lejeme.persistance.DialogueBd;
 
 public class Service {
 

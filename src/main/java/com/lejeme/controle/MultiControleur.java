@@ -14,21 +14,11 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 //import com.epul.metier.*;
 //import com.epul.meserreurs.*;
 
-
-
 import com.lejeme.dao.Service;
-import com.epul.oeuvres.meserreurs.*;
-import com.epul.oeuvres.metier.*;
-
-
-
-
-
-
+import com.lejeme.meserreurs.*;
+import com.lejeme.metier.*;
 
 import org.springframework.ui.Model;
-
-
 
 import java.util.*;
 

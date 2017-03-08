@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.epul.oeuvres.meserreurs.*;
+import com.lejeme.meserreurs.*;
+import com.lejeme.meserreurs.MonException;
 
 public class DialogueBd {
 
