@@ -19,12 +19,12 @@
         <jsp:invoke fragment="stylesheet_tag"/>
         <link rel="stylesheet" href="<c:url value="/resources/css/main.css"/>"/>
         <title>${title}</title>
+        <script type="application/javascript" src="<c:url value="/resources/lib/jquery/jquery-1.11.2.min.js"/>"></script>
     </head>
 
     <body>
         <jsp:invoke fragment="body_tag"/>
         <script type="application/javascript" src="<c:url value="/resources/js/formControleur.js"/>"></script>
-        <script type="application/javascript" src="<c:url value="/resources/lib/jquery/jquery-1.11.2.min.js"/>"></script>
         <script type="application/javascript" src="<c:url value="/resources/lib/bootstrap/js/bootstrap.js"/>"></script>
         <script type="application/javascript" src="<c:url value="/resources/js/menu.js"/>"></script>
         <jsp:invoke fragment="javascripts_tag"/>

@@ -14,15 +14,15 @@ public class Pret implements Serializable {
 	private Date date;
 	private int duree;
 	private Oeuvrepret oeuvrepret;
-	private Adherent adherent;
+	private Member member;
 
 	
-	public Pret( Date date, int duree, Oeuvrepret oeuvrepret, Adherent adherent) {
+	public Pret( Date date, int duree, Oeuvrepret oeuvrepret, Member member) {
 		super();
 		this.date = date;
 		this.duree = duree;
 		this.oeuvrepret = oeuvrepret;
-		this.adherent = adherent;
+		this.member = member;
 	}
 
 	public Pret() {
@@ -53,12 +53,12 @@ public class Pret implements Serializable {
 		this.oeuvrepret = oeuvrepret;
 	}
 
-	public Adherent getAdherent() {
-		return this.adherent;
+	public Member getMember() {
+		return this.member;
 	}
 
-	public void setAdherent(Adherent adherent) {
-		this.adherent = adherent;
+	public void setMember(Member member) {
+		this.member = member;
 	}
 
 }

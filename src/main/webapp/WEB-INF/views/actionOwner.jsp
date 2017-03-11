@@ -5,16 +5,16 @@
 <t:form title="${edit ? 'EditOwner' : 'AddOwner'}" contentTitle="${edit ? 'Edit Owner' : 'Add Owner'}" typeOfEntity="member" method="post" edit="${edit ? 'true' : 'false'}" test="verifFormOwner(this)">
     <jsp:attribute name="form_tag">
         <c:if test="${edit}">
-            <t:input value="${edit ? monProprio.idProprietaire : ''}" type="number" name="id" id="id" placeholder="Id"  readonly="readonly" label="Id"/>
+            <t:input value="${edit ? monProprio.id : ''}" type="number" name="id" id="id" placeholder="Id"  readonly="readonly" label="Id"/>
         </c:if>
-        <t:input value="${edit ? monProprio.nomProprietaire : ''}"
+        <t:input value="${edit ? monProprio.name : ''}"
                  type="text" name="nom"
                  id="nom"
                  placeholder="LastName"
                  onblur="verifNom(this)"
                  required="required"
                  label="Last name"/>
-        <t:input value="${edit ? monProprio.prenomProprietaire : ''}"
+        <t:input value="${edit ? monProprio.firstName : ''}"
                  type="text"
                  name="prenom"
                  id="prenom"

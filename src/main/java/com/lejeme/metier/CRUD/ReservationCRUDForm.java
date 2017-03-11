@@ -12,11 +12,11 @@ public class ReservationCRUDForm extends AbstractCRUDForm<Reservation> {
     }
 
     protected String getId(Reservation record) {
-        return "" + record.getOeuvrevente().getIdOeuvrevente();
+        return "" + record.getWorkOfArt().getId();
     }
 
     public String getTypeName() {
-        return "reservation";
+        return "reservations";
     }
 
     public int getNumberOfFields() {
@@ -32,9 +32,9 @@ public class ReservationCRUDForm extends AbstractCRUDForm<Reservation> {
             case 0:
                 return "" + record.getDate();
             case 1:
-                return "" + record.getAdherent().getNomAdherent() + " " +record.getAdherent().getPrenomAdherent();
+                return "" + record.getMember().getName() + " " +record.getMember().getFirstName();
             case 2:
-                return record.getOeuvrevente().getTitreOeuvrevente();
+                return record.getWorkOfArt().getTitle();
             default:
                 return "a";
 //                throw new IllegalArgumentException(Messages.getString("DataValidationConfigurationCrudForm.YouShouldntHaveGottenHere")); //$NON-NLS-1$

@@ -1,6 +1,8 @@
 package com.lejeme.controle;
 
-import com.lejeme.dao.Service;
+import com.lejeme.dao.MemberService;
+import com.lejeme.dao.ReservationService;
+import com.lejeme.dao.WorkOfArtService;
 import com.lejeme.meserreurs.MonException;
 import com.lejeme.metier.Reservation;
 import org.springframework.stereotype.Controller;
@@ -21,8 +23,8 @@ public class ReservationController {
     @RequestMapping(value = "list.htm")
     public ModelAndView listReservation(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
-            Service unService = new Service();
-            request.setAttribute("myEntities", unService.consulterListeReservationCRUD());
+            ReservationService reservationService = new ReservationService();
+            request.setAttribute("myEntities", reservationService.getListCRUD());
             request.setAttribute("title", "ReservationsList");
             request.setAttribute("contentTitle", "Reservations List");
             destinationPage = "list";
@@ -37,8 +39,8 @@ public class ReservationController {
     @RequestMapping(value = "add.htm")
     public ModelAndView addReservation(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
-            adherentsComboBox(request);
-            oeuvresComboBox(request);
+            membersComboBox(request);
+            worksOfArtComboBox(request);
             destinationPage = "actionReservation";
         } catch (Exception e) {
             request.setAttribute("MesErreurs", e.getMessage());
@@ -50,17 +52,23 @@ public class ReservationController {
     @RequestMapping(value = "insert.htm")
     public ModelAndView insertReservation(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
-            Reservation uneResa = new Reservation();
-            uneResa.getOeuvrevente().setTitreOeuvrevente(request.getParameter("txttitre"));
+            Reservation reservation = new Reservation();
+            reservation.getWorkOfArt().setTitle(request.getParameter("txttitre"));
+
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             Date date = new Date(df.parse(request.getParameter("txtdate")).getTime());
-            uneResa.setDate(date);
-            uneResa.getAdherent().setNomAdherent(request.getParameter("txtadherent"));
 
-            Service unService = new Service();
-            unService.insertReservation(uneResa);
+            reservation.setDate(date);
+            reservation.getMember().setName(request.getParameter("txtadherent"));
+
+            ReservationService reservationService = new ReservationService();
+            reservationService.insert(reservation);
 
             request.setAttribute("flashMessage_success", "The reservation has been successfully added");
+
+            request.setAttribute("myEntities", reservationService.getListCRUD());
+            request.setAttribute("title", "ReservationsList");
+            request.setAttribute("contentTitle", "Reservations List");
             destinationPage = "list";
         } catch (Exception e) {
             request.setAttribute("MesErreurs", e.getMessage());
@@ -72,17 +80,16 @@ public class ReservationController {
     @RequestMapping(value = "{id}/remove.htm")
     public ModelAndView removeReservation(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
-            Service unService = new Service();
-            unService.updateOeuvreBeforeDeleteReservation(String.valueOf(id));
-            unService.supprimerReservation(String.valueOf(id));
+            ReservationService reservationService = new ReservationService();
+            reservationService.updateBeforeDelete(id);
+            reservationService.remove(id);
+
             request.setAttribute("flashMessage_success", "The reservation has been successfully removed");
 
-            unService = new Service();
-            request.setAttribute("myEntities", unService.consulterListeReservationCRUD());
+            request.setAttribute("myEntities", reservationService.getListCRUD());
             request.setAttribute("title", "ReservationsList");
             request.setAttribute("contentTitle", "Reservations List");
             destinationPage = "list";
-
         } catch (MonException e) {
             request.setAttribute("MesErreurs", e.getMessage());
             destinationPage = "Erreur";
@@ -93,14 +100,16 @@ public class ReservationController {
     @RequestMapping(value = "{id}/edit.htm")
     public ModelAndView editReservation(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
-            Service unService = new Service();
-            request.setAttribute("maReservation", unService.consulterReservation(String.valueOf(id)));
-            request.setAttribute("mesOeuvres", unService.consulterListeOeuvres());
-            request.setAttribute("mesAdherents", unService.consulterListeAdherents());
+            ReservationService reservationService = new ReservationService();
+            MemberService memberService = new MemberService();
+            WorkOfArtService workOfArtService = new WorkOfArtService();
+
+            request.setAttribute("maReservation", reservationService.get(id));
+            request.setAttribute("mesOeuvres", workOfArtService.getList());
+            request.setAttribute("mesAdherents", memberService.getList());
 
             request.setAttribute("edit", true);
-            destinationPage = "actionOwner";
-
+            destinationPage = "actionReservation";
         } catch (MonException e) {
             request.setAttribute("MesErreurs", e.getMessage());
             destinationPage = "Erreur";
@@ -111,19 +120,21 @@ public class ReservationController {
     @RequestMapping(value = "{id}/update.htm")
     public ModelAndView updateReservation(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
-            Reservation uneReservation = new Reservation();
-            uneReservation.getOeuvrevente().setTitreOeuvrevente(request.getParameter("txttitre"));
+            Reservation reservation = new Reservation();
+            reservation.getWorkOfArt().setTitle(request.getParameter("txttitre"));
+
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             Date date = new Date(df.parse(request.getParameter("txtdate")).getTime());
-            uneReservation.setDate(date);
-            uneReservation.getAdherent().setNomAdherent(request.getParameter("txtadherent"));
-            Service unService = new Service();
 
-            unService.editReservation(uneReservation, String.valueOf(id));
+            reservation.setDate(date);
+            reservation.getMember().setName(request.getParameter("txtadherent"));
+            ReservationService reservationService = new ReservationService();
+
+            reservationService.edit(reservation, id);
 
             request.setAttribute("flashMessage_success", "The reservation has been successfully modified");
 
-            request.setAttribute("myEntities", unService.consulterListeReservationCRUD());
+            request.setAttribute("myEntities", reservationService.getListCRUD());
             request.setAttribute("title", "ReservationsList");
             request.setAttribute("contentTitle", "Reservations List");
             destinationPage = "list";
@@ -134,22 +145,20 @@ public class ReservationController {
         return new ModelAndView(destinationPage);
     }
 
-    private void adherentsComboBox(HttpServletRequest request){
+    private void membersComboBox(HttpServletRequest request){
         try {
-            Service unService = new Service();
-            request.setAttribute("mesAdherents", unService.consulterListeAdherents());
+            MemberService memberService = new MemberService();
+            request.setAttribute("mesAdherents", memberService.getList());
         } catch (MonException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
-    private void oeuvresComboBox(HttpServletRequest request){
+    private void worksOfArtComboBox(HttpServletRequest request){
         try {
-            Service unService = new Service();
-            request.setAttribute("mesOeuvres", unService.consulterListeOeuvresDisponibles());
+            WorkOfArtService workOfArtService = new WorkOfArtService();
+            request.setAttribute("mesOeuvres", workOfArtService.getListAvailable());
         } catch (MonException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

@@ -11,24 +11,24 @@ import java.sql.Date;
 public class Reservation implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private java.util.Date date;
-	private Adherent adherent;
-	private Oeuvrevente oeuvrevente;
+	private Member member;
+	private WorkOfArt workOfArt;
 	private String statut;
 
 	public Reservation() {
-		oeuvrevente = new Oeuvrevente();
-		adherent = new Adherent();
+		workOfArt = new WorkOfArt();
+		member = new Member();
 	}
 
-	public Reservation(int id, Date date, Adherent adherent, Oeuvrevente oeuvrevente) {
+	public Reservation(int id, Date date, Member member, WorkOfArt workOfArt) {
 		super();
 		this.date = date;
-		this.adherent = adherent;
-		this.oeuvrevente = oeuvrevente;
+		this.member = member;
+		this.workOfArt = workOfArt;
 	}
 
 	public int getId(){
-		return this.getOeuvrevente().getIdOeuvrevente();
+		return this.getWorkOfArt().getId();
 	}
 
 	public String getStatut() {
@@ -47,20 +47,20 @@ public class Reservation implements Serializable {
 		this.date = date;
 	}
 
-	public Adherent getAdherent() {
-		return this.adherent;
+	public Member getMember() {
+		return this.member;
 	}
 
-	public void setAdherent(Adherent adherent) {
-		this.adherent = adherent;
+	public void setMember(Member member) {
+		this.member = member;
 	}
 
-	public Oeuvrevente getOeuvrevente() {
-		return this.oeuvrevente;
+	public WorkOfArt getWorkOfArt() {
+		return this.workOfArt;
 	}
 
-	public void setOeuvrevente(Oeuvrevente oeuvrevente) {
-		this.oeuvrevente = oeuvrevente;
+	public void setWorkOfArt(WorkOfArt workOfArt) {
+		this.workOfArt = workOfArt;
 	}
 
 }

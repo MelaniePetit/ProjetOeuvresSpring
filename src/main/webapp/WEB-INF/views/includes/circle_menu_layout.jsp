@@ -31,12 +31,12 @@
     [
         '/members/list.htm',
         '/members/add.htm',
-        '/workofart/list.htm',
-        '/workofart/add.htm',
+        '/worksofart/list.htm',
+        '/worksofart/add.htm',
         '/reservations/add.htm',
         '/reservations/list.htm',
-        '/owner/.htm',
-        '/owner/list.htm'
+        '/owners/add.htm',
+        '/owners/list.htm'
     ]
 }"/>
 

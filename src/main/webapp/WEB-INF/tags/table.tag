@@ -20,7 +20,7 @@
                 </c:forEach>
 
                 <td>
-                    <a href="${entities.getId(row)}/${entities.getEditController()}" type="button" class="btn btn-primary "><i class="fa fa-pencil"></i></a>
+                    <a href="/${entities.getTypeName()}/${entities.getId(row)}/${entities.getEditController()}" type="button" class="btn btn-primary "><i class="fa fa-pencil"></i></a>
                     <a type="button" class="btn btn-danger" data-toggle="modal" data-target=".deleteModal_${entities.getId(row)}"><i class="fa fa-times"></i></a>
 
                         <%--Delete Modal--%>

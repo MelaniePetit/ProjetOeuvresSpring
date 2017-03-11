@@ -15,7 +15,7 @@
 
     <jsp:attribute name="body_tag">
         <header class="flex-center-center">
-            <a href="index" class="back-to-home flex-center-center"><i class="fa fa-arrow-left fa-2x"></i></a>
+            <a href="/index.htm" class="back-to-home flex-center-center"><i class="fa fa-arrow-left fa-2x"></i></a>
             <h1>${contentTitle}</h1>
         </header>
 

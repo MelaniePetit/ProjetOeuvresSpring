@@ -13,18 +13,18 @@ public class Oeuvrepret implements Serializable {
 
 	private int idOeuvrepret;
 	private String titreOeuvrepret;
-	private Proprietaire proprietaire;
+	private Owner owner;
 
 	
-	public Oeuvrepret(int idOeuvrepret, String titreOeuvrepret, Proprietaire proprietaire) {
+	public Oeuvrepret(int idOeuvrepret, String titreOeuvrepret, Owner owner) {
 		super();
 		this.idOeuvrepret = idOeuvrepret;
 		this.titreOeuvrepret = titreOeuvrepret;
-		this.proprietaire = proprietaire;
+		this.owner = owner;
 	}
 
 	public Oeuvrepret() {
-		proprietaire = new Proprietaire();
+		owner = new Owner();
 
 	}
 
@@ -44,12 +44,12 @@ public class Oeuvrepret implements Serializable {
 		this.titreOeuvrepret = titreOeuvrepret;
 	}
 
-	public Proprietaire getProprietaire() {
-		return this.proprietaire;
+	public Owner getOwner() {
+		return this.owner;
 	}
 
-	public void setProprietaire(Proprietaire proprietaire) {
-		this.proprietaire = proprietaire;
+	public void setOwner(Owner owner) {
+		this.owner = owner;
 	}
 
 }

@@ -22,7 +22,7 @@
            <div class="col-sm-5">
                <select class="form-control " name="txttitre" onChange="combo(this, 'theinput')" onMouseOut="comboInit(this, 'theinput')" ${edit ? ' disabled' : ''}>
                     <c:forEach items="${mesOeuvres}" var="item">
-                        <option ${edit ? (item.idOeuvrevente == maReservation.oeuvrevente.idOeuvrevente ? 'selected="selected"' : '') : ''}>${item.titreOeuvrevente}</option>
+                        <option ${edit ? (item.id == maReservation.workOfArt.id ? 'selected="selected"' : '') : ''}>${item.title}</option>
                     </c:forEach>
                </select>
            </div>
@@ -42,7 +42,7 @@
             <div class="col-sm-5">
                 <select class="form-control " name="txtadherent" onChange="combo(this, 'theinput')" onMouseOut="comboInit(this, 'theinput')" ${edit ? ' disabled' : ''}>
                     <c:forEach items="${mesAdherents}" var="item">
-                        <option ${edit ? (item.idAdherent == maReservation.adherent.idAdherent ? 'selected="selected"' : '') : ''}>${item.nomAdherent}</option>
+                        <option ${edit ? (item.id == maReservation.member.id ? 'selected="selected"' : '') : ''}>${item.name}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -50,7 +50,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="javascripts_tag">
-        <script type="text/javascript" src="webjars/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+        <script type="text/javascript" src="/resources/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
         <script>
             $('.input-group.date').datepicker({
                 format: "yyyy-mm-dd",

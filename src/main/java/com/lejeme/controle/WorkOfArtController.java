@@ -1,26 +1,26 @@
 package com.lejeme.controle;
 
-import com.lejeme.dao.Service;
+import com.lejeme.dao.OwnerService;
+import com.lejeme.dao.WorkOfArtService;
 import com.lejeme.meserreurs.MonException;
-import com.lejeme.metier.Oeuvrevente;
+import com.lejeme.metier.WorkOfArt;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
-@RequestMapping("/workofart")
+@RequestMapping("/worksofart/")
 public class WorkOfArtController {
     private String destinationPage = "";
 
     @RequestMapping(value = "list.htm")
     public ModelAndView listWorkOfArt(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
-            Service unService = new Service();
-            request.setAttribute("myEntities", unService.consulterListeOeuvresCRUD());
+            WorkOfArtService workOfArtService = new WorkOfArtService();
+            request.setAttribute("myEntities", workOfArtService.getListCRUD());
             request.setAttribute("title", "WorksOfArtList");
             request.setAttribute("contentTitle", "Works Of Art List");
             destinationPage = "list";
@@ -35,8 +35,8 @@ public class WorkOfArtController {
     @RequestMapping(value = "add.htm")
     public ModelAndView addWorkOfArt(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
-            proprietairesComboBox(request);
-            destinationPage = "actionOwner";
+            ownersComboBox(request);
+            destinationPage = "actionWorkOfArt";
         } catch (Exception e) {
             request.setAttribute("MesErreurs", e.getMessage());
             destinationPage = "Erreur";
@@ -47,21 +47,20 @@ public class WorkOfArtController {
     @RequestMapping(value = "insert.htm")
     public ModelAndView insertWorkOfArt(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
-            Oeuvrevente uneOeuvre = new Oeuvrevente();
-            uneOeuvre.setTitreOeuvrevente(request.getParameter("titre"));
-            uneOeuvre.setPrixOeuvrevente(Integer.parseInt(request.getParameter("prix")));
-            uneOeuvre.getProprietaire().setNomProprietaire(request.getParameter("nomproprio"));
+            WorkOfArt workOfArt = new WorkOfArt();
+            workOfArt.setTitle(request.getParameter("titre"));
+            workOfArt.setPrice(Integer.parseInt(request.getParameter("prix")));
+            workOfArt.getOwner().setName(request.getParameter("nomproprio"));
 
-            Service unService = new Service();
-            unService.insertOeuvre(uneOeuvre);
+            WorkOfArtService workOfArtService = new WorkOfArtService();
+            workOfArtService.insert(workOfArt);
 
-            request.setAttribute("flashMessage_success", "The Work of art '" + uneOeuvre.getTitreOeuvrevente() + "' has been added successfully");
+            request.setAttribute("flashMessage_success", "The Work of art '" + workOfArt.getTitle() + "' has been added successfully");
 
-            request.setAttribute("myEntities", unService.consulterListeOeuvresCRUD());
+            request.setAttribute("myEntities", workOfArtService.getListCRUD());
             request.setAttribute("title", "WorksOfArtList");
             request.setAttribute("contentTitle", "Works Of Art List");
             destinationPage = "list";
-
         } catch (Exception e) {
             request.setAttribute("MesErreurs", e.getMessage());
             destinationPage = "Erreur";
@@ -73,10 +72,10 @@ public class WorkOfArtController {
     @RequestMapping(value = "{id}/remove.htm")
     public ModelAndView removeWorkOfArt(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
-            Service unService = new Service();
-            if(!unService.isOeuvreReserved(Integer.parseInt(String.valueOf(id))))
+            WorkOfArtService workOfArtService = new WorkOfArtService();
+            if(!workOfArtService.isReserved(Integer.parseInt(String.valueOf(id))))
             {
-                unService.supprimerOeuvre(Integer.parseInt(String.valueOf(id)));
+                workOfArtService.remove(id);
                 request.setAttribute("flashMessage_success", "The Work of art has been successfully removed");
             }
             else
@@ -84,13 +83,11 @@ public class WorkOfArtController {
                 request.setAttribute("flashMessage_error", "The Work of art is Reserved, delete the reservation first");
             }
 
-            unService = new Service();
-            request.setAttribute("myEntities", unService.consulterListeOeuvresCRUD());
+            request.setAttribute("myEntities", workOfArtService.getListCRUD());
             request.setAttribute("title", "WorksOfArtList");
             request.setAttribute("contentTitle", "Works Of Art List");
 
             destinationPage = "list";
-
         } catch (MonException e) {
             request.setAttribute("MesErreurs", e.getMessage());
             destinationPage = "Erreur";
@@ -102,12 +99,13 @@ public class WorkOfArtController {
     @RequestMapping(value = "{id}/edit.htm")
     public ModelAndView editWorkOfArt(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
-            Service unService = new Service();
-            request.setAttribute("monOeuvre", unService.consulterOeuvre(String.valueOf(id)));
-            request.setAttribute("mesProprietaires", unService.consulterListeProprietaire());
-            request.setAttribute("edit", true);
-            destinationPage = "actionOwner";
+            WorkOfArtService workOfArtService = new WorkOfArtService();
+            OwnerService ownerService = new OwnerService();
 
+            request.setAttribute("monOeuvre", workOfArtService.get(id));
+            request.setAttribute("mesProprietaires", ownerService.getList());
+            request.setAttribute("edit", true);
+            destinationPage = "actionWorkOfArt";
         } catch (MonException e) {
             request.setAttribute("MesErreurs", e.getMessage());
             destinationPage = "Erreur";
@@ -118,18 +116,18 @@ public class WorkOfArtController {
     @RequestMapping(value = "{id}/update.htm")
     public ModelAndView updateWorkOfArt(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
-            Oeuvrevente uneOeuvre = new Oeuvrevente();
-            uneOeuvre.setTitreOeuvrevente(request.getParameter("titre"));
-            uneOeuvre.getProprietaire().setNomProprietaire(request.getParameter("nomproprio"));
-            uneOeuvre.setPrixOeuvrevente(Integer.parseInt(request.getParameter("prix")));
+            WorkOfArt workOfArt = new WorkOfArt();
+            workOfArt.setTitle(request.getParameter("titre"));
+            workOfArt.getOwner().setName(request.getParameter("nomproprio"));
+            workOfArt.setPrice(Integer.parseInt(request.getParameter("prix")));
 
-            Service unService = new Service();
+            WorkOfArtService workOfArtService = new WorkOfArtService();
 
-            unService.editOeuvre(uneOeuvre, String.valueOf(id));
+            workOfArtService.edit(workOfArt, id);
 
-            request.setAttribute("flashMessage_success", "The Work of art '" + uneOeuvre.getTitreOeuvrevente() + "' has been modified successfully");
+            request.setAttribute("flashMessage_success", "The Work of art '" + workOfArt.getTitle() + "' has been modified successfully");
 
-            request.setAttribute("myEntities", unService.consulterListeOeuvresCRUD());
+            request.setAttribute("myEntities", workOfArtService.getListCRUD());
             request.setAttribute("title", "WorksOfArtList");
             request.setAttribute("contentTitle", "Works Of Art List");
             destinationPage = "list";
@@ -141,10 +139,10 @@ public class WorkOfArtController {
         return new ModelAndView(destinationPage);
     }
 
-    private void proprietairesComboBox(HttpServletRequest request){
+    private void ownersComboBox(HttpServletRequest request){
         try {
-            Service unService = new Service();
-            request.setAttribute("mesProprietaires", unService.consulterListeProprietaire());
+            OwnerService ownerService = new OwnerService();
+            request.setAttribute("mesProprietaires", ownerService.getList());
         } catch (MonException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
