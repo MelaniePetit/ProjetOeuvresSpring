@@ -1,11 +1,11 @@
 package com.lejeme.persistance;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
 
 import com.lejeme.meserreurs.MonException;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -20,8 +20,8 @@ public class Connexion {
 		return instance;
 	}
 
-	// on rend le constructeur priv�
-	// pour emp�cher toute cr�ation d'instance
+	// on rend le constructeur prive
+	// pour empecher toute creation d'instance
 	private Connexion() {
 	}
 

@@ -12,12 +12,12 @@ public class Oeuvrevente implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int idOeuvrevente;
 	private String etatOeuvrevente;
-	private float prixOeuvrevente;
+	private int prixOeuvrevente;
 	private String titreOeuvrevente;
 	private Proprietaire proprietaire;
 
 
-	public Oeuvrevente(int idOeuvrevente, String etatOeuvrevente, float prixOeuvrevente, String titreOeuvrevente,
+	public Oeuvrevente(int idOeuvrevente, String etatOeuvrevente, int prixOeuvrevente, String titreOeuvrevente,
 			Proprietaire proprietaire) {
 		super();
 		this.idOeuvrevente = idOeuvrevente;
@@ -28,6 +28,8 @@ public class Oeuvrevente implements Serializable {
 	}
 
 	public Oeuvrevente() {
+		proprietaire = new Proprietaire();
+
 	}
 
 	public int getIdOeuvrevente() {
@@ -46,11 +48,11 @@ public class Oeuvrevente implements Serializable {
 		this.etatOeuvrevente = etatOeuvrevente;
 	}
 
-	public float getPrixOeuvrevente() {
+	public int getPrixOeuvrevente() {
 		return this.prixOeuvrevente;
 	}
 
-	public void setPrixOeuvrevente(float prixOeuvrevente) {
+	public void setPrixOeuvrevente(int prixOeuvrevente) {
 		this.prixOeuvrevente = prixOeuvrevente;
 	}
 

@@ -1,0 +1,50 @@
+input[type="text"],
+input[type="number"],
+textarea,
+select,
+select.form-control,
+input.form-control,
+textarea.form-control
+  margin: 0
+  vertical-align: middle
+  background: #fff
+  border: 1px solid #AAAAAA
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input.form-control:focus,
+textarea:focus,
+textarea.form-control:focus
+  outline: none !important
+  border: 1px solid _palette(general, highlight) !important
+  background: #fff
+  -moz-box-shadow: none
+  -webkit-box-shadow: none
+  box-shadow: none
+
+select,
+select.form-control
+  margin: 0
+  vertical-align: middle
+  background: #fff
+  border: 1px solid #AAAAAA !important
+
+select:focus,
+select.form-control:focus
+  outline: none !important
+  border: 1px solid _palette(general, highlight) !important
+  -moz-box-shadow: none
+  -webkit-box-shadow: none
+  box-shadow: none
+
+input[type="text"]:-moz-placeholder, input[type="password"]:-moz-placeholder,
+textarea:-moz-placeholder, textarea.form-control:-moz-placeholder
+  color: #888
+
+input[type="text"]:-ms-input-placeholder, input[type="password"]:-ms-input-placeholder,
+textarea:-ms-input-placeholder, textarea.form-control:-ms-input-placeholder
+  color: #888
+
+input[type="text"]::-webkit-input-placeholder, input[type="password"]::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder, textarea.form-control::-webkit-input-placeholder
+  color: #888

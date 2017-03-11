@@ -1,0 +1,41 @@
+@mixin noSpaceIB
+  margin-right: -4px
+  margin-bottom: -4px
+
+@mixin transition($obj: all, $duration: 0.5s, $type: ease, $delay: 0s)
+  -webkit-transition: $obj $duration $type $delay
+  -moz-transition: $obj $duration $type $delay
+  -o-transition: $obj $duration $type $delay
+  -ms-transition: $obj $duration $type $delay
+  transition: $obj $duration $type $delay
+
+@mixin scrollbar()
+  ::-webkit-scrollbar
+    width: 5px
+  ::-webkit-scrollbar-track
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3)
+  ::-webkit-scrollbar-thumb
+    background-color: darkgrey
+
+@mixin rotate($angle: 0deg)
+  -webkit-transform: rotate($angle)
+  -moz-transform: rotate($angle)
+  -o-transform: rotate($angle)
+  -ms-transform: rotate($angle)
+  transform: rotate($angle)
+
+@mixin translate($X: 0, $Y: 0)
+  -webkit-transform: translate($X, $Y)
+  -moz-transform: translate($X, $Y)
+  -o-transform: translate($X, $Y)
+  -ms-transform: translate($X, $Y)
+  transform: translate($X, $Y)
+
+@mixin size($width ,$height)
+  width: $width
+  height: $height
+
+
+
+
+

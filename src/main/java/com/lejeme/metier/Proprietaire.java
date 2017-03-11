@@ -2,8 +2,6 @@ package com.lejeme.metier;
 
 import java.io.Serializable;
 
-import java.util.List;
-
 
 /**
  * The persistent class for the proprietaire database table.

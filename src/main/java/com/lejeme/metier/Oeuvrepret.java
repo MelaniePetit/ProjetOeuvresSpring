@@ -24,6 +24,8 @@ public class Oeuvrepret implements Serializable {
 	}
 
 	public Oeuvrepret() {
+		proprietaire = new Proprietaire();
+
 	}
 
 	public int getIdOeuvrepret() {

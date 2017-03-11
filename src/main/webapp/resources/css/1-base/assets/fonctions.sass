@@ -1,0 +1,13 @@
+@function val($map, $keys...)
+  @if nth($keys, 1) == null
+    $keys: remove-nth($keys, 1)
+  @each $key in $keys
+    $map: map-get($map, $key)
+  @return $map
+
+/// Gets a palette value.
+/// @param {string} $keys Key(s).
+/// @return {string} Value.
+
+@function _palette($keys...)
+  @return val($palette, $keys...)

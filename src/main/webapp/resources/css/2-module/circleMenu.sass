@@ -1,0 +1,105 @@
+#circleMenu
+  position: absolute
+  z-index: 999
+  bottom: 0
+  left: 50%
+  right: 50%
+  top: 90%
+  width: 70px
+  height: 70px
+  transform: translate(-50%,-50%)
+  background-color: white
+  border-radius: 50%
+  border: 5px solid _palette(general,highlight)
+  font-size: 50px
+  cursor: pointer
+  @include transition(all,0.5s,ease,1.7s)
+  &.active
+    z-index: 9999
+    width: 200px
+    height: 200px
+    top: 50%
+    @include transition(all,0.5s,ease,0s)
+    @media (max-width: 767px)
+      width: 100px
+      height: 100px
+
+.menu-list
+  position: absolute
+  top: 50%
+  left: 50%
+  right: 50%
+  transform: translate(-50%,-50%)
+  @include size(70px,70px)
+  z-index: 999
+  .menu
+    position: absolute
+    opacity: 0
+    @include size(70px,70px)
+    border-radius: 50%
+    border: 2px solid whitesmoke
+    background-color: rgba(_palette(general,highlight),0.8)
+    color: whitesmoke
+    &:nth-child(1)
+      transition: transform 0.5s ease 0.2s, opacity 0.5s ease 0.2s, border-color 0.5s ease 0s, background-color 0.5s ease 0s
+    &:nth-child(2)
+      transition: transform 0.5s ease 0.4s, opacity 0.5s ease 0.4s, border-color 0.5s ease 0s, background-color 0.5s ease 0s
+    &:nth-child(3)
+      transition: transform 0.5s ease 0.6s, opacity 0.5s ease 0.6s, border-color 0.5s ease 0s, background-color 0.5s ease 0s
+    &:nth-child(4)
+      transition: transform 0.5s ease 0.8s, opacity 0.5s ease 0.8s, border-color 0.5s ease 0s, background-color 0.5s ease 0s
+    &:nth-child(5)
+      transition: transform 0.5s ease 1s, opacity 0.5s ease 1s, border-color 0.5s ease 0s, background-color 0.5s ease 0s
+    &:nth-child(6)
+      transition: transform 0.5s ease 1.2s, opacity 0.5s ease 1.2s, border-color 0.5s ease 0s, background-color 0.5s ease 0s
+    &:nth-child(7)
+      transition: transform 0.5s ease 1.4s, opacity 0.5s ease 1.4s, border-color 0.5s ease 0s, background-color 0.5s ease 0s
+    &:nth-child(8)
+      transition: transform 0.5s ease 1.6s, opacity 0.5s ease 1.6s, border-color 0.5s ease 0s, background-color 0.5s ease 0s
+
+    &.active
+      opacity: 1
+      cursor: pointer
+      &:nth-child(1)
+        transform: translate(0,-250%)
+        @media (max-width: 767px)
+          transform: translate(0,-180%)
+      &:nth-child(2)
+        transform: translate(180%,-180%)
+        @media (max-width: 767px)
+          transform: translate(130%,-130%)
+      &:nth-child(3)
+        transform: translate(250%,0)
+        @media (max-width: 767px)
+          transform: translate(180%,0)
+      &:nth-child(4)
+        transform: translate(180%,180%)
+        @media (max-width: 767px)
+          transform: translate(130%,130%)
+      &:nth-child(5)
+        transform: translate(0%,250%)
+        @media (max-width: 767px)
+          transform: translate(0,180%)
+      &:nth-child(6)
+        transform: translate(-180%,180%)
+        @media (max-width: 767px)
+          transform: translate(-130%,130%)
+      &:nth-child(7)
+        transform: translate(-250%,0)
+        @media (max-width: 767px)
+          transform: translate(-180%,0)
+      &:nth-child(8)
+        transform: translate(-180%,-180%)
+        @media (max-width: 767px)
+          transform: translate(-130%,-130%)
+      &:hover
+        border-color: black
+        background-color: rgba(_palette(general,highlight),0.5)
+        
+      a
+        cursor: pointer
+    a
+      @include size(100%,100%)
+      text-decoration: none
+      color: white
+      cursor: default
